@@ -15,27 +15,28 @@ Scaffold a new project workspace through guided conversation so every project st
 
 `$ARGUMENTS` is optional. If provided, treat it as the primary identifier — it could be a client name or a project name depending on what the user intends. Clarify during Step 1 (client vs internal) to determine whether the argument becomes the client folder name or the project folder name.
 
-## Pre-flight — Web UI Setup
-
-Before starting the guided workflow, ensure the companion web UI is ready. Run these checks silently — don't narrate them unless something fails.
-
-1. **Find the plugin root.** Search for `.claude-plugin/plugin.json` containing `novus-toolkit` within 3 levels of the working directory. Store the resolved path as `PLUGIN_DIR`.
-2. **Check Node.js.** Run `node --version`. If Node is not installed, warn the user that the web form won't be available but the chat workflow still works. Skip to **Choose your path** and only offer the chat option.
-3. **Install dependencies.** Check if `$PLUGIN_DIR/app/node_modules` exists. If not, run `npm install --prefix $PLUGIN_DIR/app`.
-4. **Start the server.** Check if port 3847 is in use (`lsof -ti:3847`). If not, start the server in the background: `nohup node $PLUGIN_DIR/app/dist/server.js "$(pwd)" >/dev/null 2>&1 &` — then wait briefly and verify it started.
-
 ## Choose your path
 
-After pre-flight, present the user with two options:
+Before anything else, ask the user how they'd like to scaffold:
 
 > Two ways to set up this project:
-> 1. **Chat** — I'll walk you through it here
-> 2. **Web form** — fill it out at http://localhost:3847, let me know when you're done
+> 1. **Chat** (recommended) — I'll walk you through it right here
+> 2. **Web form** — a local UI where you fill everything out visually
 >
 > Which do you prefer?
 
-- **If the user chooses chat:** proceed to Step 1 (Identity) below.
-- **If the user chooses web form:** tell them the form is ready at http://localhost:3847 and to let you know when they've submitted it.
+- **If the user chooses chat:** skip all server setup. Proceed directly to Step 1 (Identity) below.
+- **If the user chooses web form:** run **Web UI Setup** below, then direct them to http://localhost:3847.
+
+## Web UI Setup
+
+Only run this if the user chose the web form. Run these checks silently — don't narrate them unless something fails.
+
+1. **Find the plugin root.** Search for `.claude-plugin/plugin.json` containing `novus-toolkit` within 3 levels of the working directory. Store the resolved path as `PLUGIN_DIR`.
+2. **Check Node.js.** Run `node --version`. If Node is not installed, tell the user the web form requires Node.js and fall back to the chat workflow — proceed to Step 1 (Identity).
+3. **Install dependencies.** Check if `$PLUGIN_DIR/app/node_modules` exists. If not, run `npm install --prefix $PLUGIN_DIR/app`.
+4. **Start the server.** Check if port 3847 is in use (`lsof -ti:3847`). If not, start the server in the background: `nohup node $PLUGIN_DIR/app/dist/server.js "$(pwd)" >/dev/null 2>&1 &` — then wait briefly and verify it started.
+5. **Direct the user.** Tell them the form is ready at http://localhost:3847 and to let you know when they've submitted it.
 
 ## Pick up after web form
 
