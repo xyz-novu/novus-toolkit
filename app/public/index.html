@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novus Scaffold</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Novus Scaffold</h1>
+      <p class="subtitle">Set up a new project workspace</p>
+    </header>
+
+    <nav class="steps" aria-label="Form steps">
+      <button class="step active" data-step="1">1. Identity</button>
+      <button class="step" data-step="2">2. Context &amp; People</button>
+      <button class="step" data-step="3">3. Research</button>
+      <button class="step" data-step="4">4. Review</button>
+    </nav>
+
+    <form id="scaffold-form" novalidate>
+
+      <!-- Step 1: Identity -->
+      <section class="panel active" data-panel="1">
+        <h2>Identity</h2>
+
+        <fieldset class="toggle-group">
+          <legend>Project type</legend>
+          <label class="toggle">
+            <input type="radio" name="projectType" value="client" checked>
+            <span>Client</span>
+          </label>
+          <label class="toggle">
+            <input type="radio" name="projectType" value="internal">
+            <span>Internal</span>
+          </label>
+        </fieldset>
+
+        <div id="client-name-field" class="field">
+          <label for="clientName">Client name</label>
+          <input type="text" id="clientName" name="clientName" placeholder="e.g. ConnectGrow">
+          <span class="hint" id="client-folder-hint"></span>
+        </div>
+
+        <div class="field">
+          <label for="projectName">Project name <span class="req">*</span></label>
+          <input type="text" id="projectName" name="projectName" placeholder="e.g. service-design-sprint" required>
+          <span class="hint">kebab-case slug used for folder and file naming</span>
+        </div>
+
+        <div class="field">
+          <label for="projectTitle">Project title <span class="req">*</span></label>
+          <input type="text" id="projectTitle" name="projectTitle" placeholder="e.g. Service Design Sprint" required>
+          <span class="hint">Human-readable title for headings and frontmatter</span>
+        </div>
+
+        <div class="field">
+          <label for="outputDir">Output directory <span class="req">*</span></label>
+          <input type="text" id="outputDir" name="outputDir" required>
+          <span class="hint" id="output-dir-hint">Relative paths resolve against the vault root</span>
+        </div>
+
+        <div class="actions">
+          <span></span>
+          <button type="button" class="btn primary" data-next="2">Next</button>
+        </div>
+      </section>
+
+      <!-- Step 2: Context, People & Foundations -->
+      <section class="panel" data-panel="2">
+        <h2>Context, People &amp; Foundations</h2>
+
+        <div class="field">
+          <label for="goal">Goal / purpose</label>
+          <textarea id="goal" name="goal" rows="2" placeholder="1-2 sentences on the core goal"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="scope">Scope</label>
+          <textarea id="scope" name="scope" rows="2" placeholder="What's in, what's out"></textarea>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="timeline">Timeline / duration</label>
+            <input type="text" id="timeline" name="timeline" placeholder="e.g. 6 weeks, Jan–March">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="strategicContext">Strategic context</label>
+          <textarea id="strategicContext" name="strategicContext" rows="3" placeholder="Why this matters, business drivers"></textarea>
+        </div>
+
+        <h3>Stakeholders</h3>
+        <div id="stakeholders">
+          <div class="stakeholder-row">
+            <input type="text" placeholder="Name" class="sh-name">
+            <input type="text" placeholder="Role" class="sh-role">
+            <input type="text" placeholder="Domain" class="sh-domain">
+            <button type="button" class="btn-icon remove-stakeholder" title="Remove" aria-label="Remove stakeholder">&times;</button>
+          </div>
+        </div>
+        <button type="button" class="btn small" id="add-stakeholder">+ Add stakeholder</button>
+
+        <h3>Foundations</h3>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="brief"> Brief / RFP</label>
+          <label><input type="checkbox" name="designSystem"> Design system / brand</label>
+          <label><input type="checkbox" name="constraints"> Technical constraints</label>
+          <label><input type="checkbox" name="businessKpis"> Business KPIs</label>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn" data-prev="1">Back</button>
+          <button type="button" class="btn primary" data-next="3">Next</button>
+        </div>
+      </section>
+
+      <!-- Step 3: Research -->
+      <section class="panel" data-panel="3">
+        <h2>Research</h2>
+
+        <fieldset class="toggle-group">
+          <legend>Is there a research phase?</legend>
+          <label class="toggle">
+            <input type="radio" name="hasResearch" value="yes">
+            <span>Yes</span>
+          </label>
+          <label class="toggle">
+            <input type="radio" name="hasResearch" value="no" checked>
+            <span>No</span>
+          </label>
+        </fieldset>
+
+        <div id="research-fields" class="conditional hidden">
+          <div class="field">
+            <label for="primaryQuestion">Primary research question</label>
+            <textarea id="primaryQuestion" name="primaryQuestion" rows="2" placeholder="What's the main thing you're trying to learn?"></textarea>
+          </div>
+
+          <fieldset>
+            <legend>Approach</legend>
+            <div class="checkbox-group">
+              <label><input type="radio" name="researchApproach" value="interviews"> Interviews</label>
+              <label><input type="radio" name="researchApproach" value="desk"> Desk research</label>
+              <label><input type="radio" name="researchApproach" value="both" checked> Both</label>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="interviewCount">Approximate interview count</label>
+            <input type="text" id="interviewCount" name="interviewCount" placeholder="e.g. 8-10">
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn" data-prev="2">Back</button>
+          <button type="button" class="btn primary" data-next="4">Review</button>
+        </div>
+      </section>
+
+      <!-- Step 4: Review & Create -->
+      <section class="panel" data-panel="4">
+        <h2>Review &amp; Create</h2>
+
+        <div id="review-summary" class="review-box">
+          <!-- Populated by JS -->
+        </div>
+
+        <h3>Files to be created</h3>
+        <div id="review-files" class="file-list">
+          <!-- Populated by JS -->
+        </div>
+
+        <div id="result-message" class="result hidden"></div>
+
+        <div class="actions">
+          <button type="button" class="btn" data-prev="3">Back</button>
+          <button type="button" class="btn primary" id="create-btn">Create</button>
+        </div>
+      </section>
+
+    </form>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

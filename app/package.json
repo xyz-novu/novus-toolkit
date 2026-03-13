@@ -1,0 +1,13 @@
+{
+  "name": "novus-toolkit-app",
+  "version": "1.0.0",
+  "description": "Local web UI for novus-toolkit scaffold",
+  "type": "module",
+  "scripts": {
+    "build": "npx -y -p typescript tsc",
+    "start": "node dist/server.js"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0"
+  }
+}

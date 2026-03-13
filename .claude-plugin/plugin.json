@@ -1,0 +1,6 @@
+{
+  "name": "novus-toolkit",
+  "version": "1.0.0",
+  "description": "Project scaffolding toolkit — AI-powered skill + local web UI for consistent project setup",
+  "author": { "name": "Sam Price" }
+}
