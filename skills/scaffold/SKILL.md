@@ -17,7 +17,9 @@ Scaffold a new project workspace through guided conversation so every project st
 
 ## Choose your path
 
-Before anything else, ask the user how they'd like to scaffold:
+**IMPORTANT: This is the very first thing you do. Do NOT run any shell commands, check for Node.js, install dependencies, or start any servers until the user has answered this question.**
+
+Ask the user:
 
 > Two ways to set up this project:
 > 1. **Chat** (recommended) — I'll walk you through it right here
@@ -25,12 +27,14 @@ Before anything else, ask the user how they'd like to scaffold:
 >
 > Which do you prefer?
 
-- **If the user chooses chat:** skip all server setup. Proceed directly to Step 1 (Identity) below.
-- **If the user chooses web form:** run **Web UI Setup** below, then direct them to http://localhost:3847.
+**Stop here and wait for the user's response.** Do not proceed until they answer.
+
+- **If the user chooses chat:** skip the entire "Web UI Setup" section. Go directly to Step 1 (Identity). Do not touch the server at all.
+- **If the user chooses web form:** proceed to **Web UI Setup** below.
 
 ## Web UI Setup
 
-Only run this if the user chose the web form. Run these checks silently — don't narrate them unless something fails.
+**Only run this section if the user explicitly chose the web form above. If they chose chat, skip this entirely.**
 
 1. **Find the plugin root.** Search for `.claude-plugin/plugin.json` containing `novus-toolkit` within 3 levels of the working directory. Store the resolved path as `PLUGIN_DIR`.
 2. **Check Node.js.** Run `node --version`. If Node is not installed, tell the user the web form requires Node.js and fall back to the chat workflow — proceed to Step 1 (Identity).
